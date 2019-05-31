@@ -1,7 +1,16 @@
+/*
+  Full Stack React and REST API
+  UserSignUp.js
+*/
+
+// import dependencies
+
 import React, {Component} from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import Header from './Header';
 import axios from 'axios';
+
+// 'user sign up' component
 
 class UserSignUp extends Component {
 
@@ -17,6 +26,8 @@ class UserSignUp extends Component {
     }
   }
 
+// update state when form value is changed by the user
+
   handleChange = e => {
     let value = e.target.value;
     let name = e.target.name;
@@ -27,6 +38,8 @@ class UserSignUp extends Component {
     }
     );
 }
+
+// POST request to create new user with data from state, and update state with a message if successful
 
 createUser = () => {
   axios.post('http://localhost:5000/api/users', {

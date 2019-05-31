@@ -1,5 +1,14 @@
+/*
+    Full Stack React and REST API
+    Forbidden.js
+*/
+
+// import dependencies
+
 import React from 'react';
 import Header from './Header';
+
+// render static page when a user attempts to navigate to a route for which they are not authenticated
 
 const Forbidden = (props) => {
     return (

@@ -1,3 +1,10 @@
+/*
+  Full Stack React and REST API
+  CourseDetail.js
+*/
+
+// import dependencies
+
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
@@ -11,6 +18,8 @@ export default class CourseDetail extends Component {
       course: ''
     };
   }
+
+// get initial course information and set state
 
 componentDidMount() {
   const { match: { params } } = this.props;
@@ -27,6 +36,8 @@ componentDidMount() {
     this.props.history.push('/notfound');
   })
 }
+
+// delete course method using authentication, and update state
 
 deleteCourse = () => {
   const { match: { params } } = this.props;

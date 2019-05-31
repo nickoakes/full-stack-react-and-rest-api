@@ -1,3 +1,10 @@
+/*
+    Full Stack React and REST API
+    Courses.js
+*/
+
+//import dependencies
+
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
@@ -24,6 +31,8 @@ export default class Courses extends Component {
             });
             });
     }
+
+// map course data onto list elements
 
     courseList = () => {
         return this.state.courses.map(course => 

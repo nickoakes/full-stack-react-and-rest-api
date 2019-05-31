@@ -1,5 +1,14 @@
+/*
+    Full Stack React and REST API
+    UnhandledError.js
+*/
+
+// import dependencies
+
 import React from 'react';
 import Header from './Header';
+
+// render an error page when a server error occurs
 
 const UnhandledError = (props) => {
     return (

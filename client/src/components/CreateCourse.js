@@ -1,3 +1,10 @@
+/*
+  Full Stack React and REST API
+  CreateCourse.js
+*/
+
+// import dependencies
+
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Header from './Header';
@@ -15,6 +22,8 @@ export default class CreateCourse extends Component {
     };
   }
 
+// update state when form values are changed by user
+
   handleChange = e => {
     let value = e.target.value;
     let name = e.target.name;
@@ -25,6 +34,8 @@ export default class CreateCourse extends Component {
     }
     );
 }
+
+// POST request to create new course, using authentication and course information from state
 
 createCourse = () => {
   axios.post('http://localhost:5000/api/courses',

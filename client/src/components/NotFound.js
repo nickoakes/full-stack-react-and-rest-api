@@ -1,6 +1,15 @@
+/*
+    Full Stack React and REST API
+    NotFound.js
+*/
+
+// import dependencies
+
 import React from 'react';
 import Header from './Header';
 import {Link} from 'react-router-dom';
+
+// render 'not found' page when a user attempts to navigate to a non-existent route
 
 const NotFound = (props) => {
     return (

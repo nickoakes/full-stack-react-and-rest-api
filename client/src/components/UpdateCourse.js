@@ -1,7 +1,16 @@
+/*
+  Full Stack React and REST API
+  UpdateCourse.js
+*/
+
+// import dependencies
+
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import Header from './Header';
 import axios from 'axios';
+
+// 'update course' component
 
 export default class UpdateCourse extends Component {
   constructor(props) {
@@ -15,6 +24,8 @@ export default class UpdateCourse extends Component {
       userId: ""
   };
 }
+
+// GET initial course data and set state
 
 componentDidMount() {
   const { match: { params } } = this.props;
@@ -36,6 +47,8 @@ componentDidMount() {
     this.props.history.push('/notfound');
   });
 }
+
+// make a PUT request to update course only if the course's user ID matches the ID of the current user
 
 updateCourse = () => {
     const { match: { params } } = this.props;
@@ -75,6 +88,8 @@ updateCourse = () => {
     this.props.history.push('/forbidden')
   }
 };
+
+// update state when form value is changed by the user
 
 handleChange = e => {
   let value = e.target.value;

@@ -1,6 +1,15 @@
+/*
+  Full Stack React and REST API
+  UserSignIn.js
+*/
+
+// import dependencies
+
 import React, {Component} from 'react';
 import {Link, withRouter, Redirect} from 'react-router-dom';
 import Header from './Header';
+
+// 'user sign in' component
 
 class UserSignIn extends Component {
 
@@ -12,9 +21,13 @@ class UserSignIn extends Component {
     };
   }
 
+// update state when the user enters an email address
+
   handleEmail = (event) => {
     this.setState({emailAddress: event.target.value})
   }
+
+// update state when the user enters a password
 
   handlePassword = (event) => {
     this.setState({password: event.target.value})

@@ -1,5 +1,14 @@
+/*
+  Full Stack React and REST API
+  Header.js
+*/
+
+// import dependencies
+
 import React from 'react';
 import {Link} from 'react-router-dom';
+
+// header component which takes the user's name as props and displays it after sign-in
 
 const Header = (props) => {
     return(
