@@ -83,7 +83,7 @@ createCourse = () => {
                 {this.state.errors ? this.state.errors.map(err => <li>{err}</li>) : ""}
               </ul>
             </div>
-          <form method="POST" action="http://localhost:5000/api/courses" onChange = {this.handleChange}>
+          <form onChange = {this.handleChange}>
             <div className="grid-66">
               <div className="course--header">
                 <h4 className="course--label">Course</h4>
