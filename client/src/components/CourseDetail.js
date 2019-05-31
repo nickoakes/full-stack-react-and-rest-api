@@ -16,20 +16,31 @@ componentDidMount() {
   const { match: { params } } = this.props;
   axios.get(`http://localhost:5000/api/courses/${params.id}`)
   .then(res => {
+    if(res.status === 500) {
+      this.props.history.push('/error');
+    }
       this.setState({
           course: res.data[0]
-      })
+      });
+  })
+  .catch(() => {
+    this.props.history.push('/notfound');
   })
 }
 
 deleteCourse = () => {
   const { match: { params } } = this.props;
-  if(this.state.course.userId === this.props.userId) {
+  if(this.state.course.userId == this.props.userId) {
     this.setState({course: "", successMessage: "Course deleted successfully"});
     this.props.history.push(`/courses/${params.id}`);
     axios.delete(`http://localhost:5000/api/courses/${params.id}`,
     {auth: {username: this.props.email, password: this.props.password}},
     )
+    .then(res => {
+      if(res.status === 500) {
+        this.props.history.push('/error');
+      }
+    });
   } else {
     this.setState(prevState => {
       return {
@@ -48,7 +59,7 @@ render() {
       <div>
         <div className="actions--bar">
           <div className="bounds">
-            <div className="grid-100"><span>{this.props.user ? <Link className="button" to={"/courses/" + this.state.course.id + "/update"}>Update Course</Link> : ""}{this.props.user ? <button className="button" onClick={this.deleteCourse}>Delete Course</button>: ""}</span><Link
+            <div className="grid-100"><span>{this.props.authenticatedUser ? <Link className="button" to={"/courses/" + this.state.course.id + "/update"}>Update Course</Link> : ""}{this.props.authenticatedUser ? <button className="button" onClick={this.deleteCourse}>Delete Course</button>: ""}</span><Link
                 className="button button-secondary" to="/">Return to List</Link><h3>{this.state.message}</h3></div>
           </div>
         </div>
@@ -58,7 +69,7 @@ render() {
             <div className="course--header">
               <h4 className="course--label">{this.state.successMessage ? "" : "Course"}</h4>
               <h3 className="course--title">{this.state.course.title}</h3>
-              <p>Course author ID: {this.state.course.userId}</p>
+              {this.state.successMessage ? "" : <p>Course author ID: {this.state.course.userId}</p>}
             </div>
             <div className="course--description">
               <p>{this.state.course.description}</p>

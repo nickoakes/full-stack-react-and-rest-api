@@ -36,7 +36,9 @@ createUser = () => {
     password: this.state.password
   })
   .then(res => {
-    if(res.status > 200 && res.status < 400) {
+    if(res.status === 500) {
+      this.props.history.push('/error');
+    } else if(res.status > 200 && res.status < 400) {
       this.setState(prevState => {
         return {
           ...prevState,

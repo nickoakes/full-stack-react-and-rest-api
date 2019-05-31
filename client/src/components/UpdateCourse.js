@@ -20,20 +20,26 @@ componentDidMount() {
   const { match: { params } } = this.props;
   axios.get(`http://localhost:5000/api/courses/${params.id}`)
   .then(res => {
+    if(res.status === 500) {
+      this.props.history.push('/error');
+    }
       this.setState({
-          id: res.data[0].id,
+          id: parseInt(res.data[0].id),
           title: res.data[0].title,
           description: res.data[0].description,
           estimatedTime: res.data[0].estimatedTime,
           materialsNeeded: res.data[0].materialsNeeded,
           userId: res.data[0].userId
-      })
+      });
   })
+  .catch(() => {
+    this.props.history.push('/notfound');
+  });
 }
 
 updateCourse = () => {
     const { match: { params } } = this.props;
-    if(this.state.userId === this.props.userId) {
+    if(this.state.userId == this.props.userId) {
     axios.put(`http://localhost:5000/api/courses/${params.id}`, 
     {
       title: this.state.title,
@@ -44,15 +50,16 @@ updateCourse = () => {
     {auth: {username: this.props.email, password: this.props.password}}
     )
     .then(res => {
-      if(res.status > 200 && res.status < 400) {
-        this.setState(prevState => {
-          return {
-            ...prevState,
-            successMessage: "Course updated successfully",
-            errors: "",
-            failureMessage: ""
-          };
-        });
+      if(res.status === 500) {
+        this.props.history.push('/error');
+      } else if(res.status > 200 && res.status < 400) {
+          this.setState(prevState => {
+            return {
+              ...prevState,
+              successMessage: "Course updated successfully",
+              errors: "",
+            };
+          });
       }
     }
 )
@@ -65,12 +72,7 @@ updateCourse = () => {
       })
     })
   } else {
-    this.setState(prevState => {
-      return {
-        ...prevState,
-        failureMessage: "You are not authorised to update this course"
-      }
-    })
+    this.props.history.push('/forbidden')
   }
 };
 
@@ -129,7 +131,7 @@ handleChange = e => {
             <div className="grid-100 pad-bottom">
               <button className="button" type="button" onClick={this.updateCourse}>Update Course</button>
               <Link className="button button-secondary" to={"/courses/" + this.state.id}>Cancel</Link>
-              <h2>{this.state.successMessage}{this.state.failureMessage}{this.state.successMessage ? <Link to="/"> - Back to courses</Link> : ""}</h2>
+              <h2>{this.state.successMessage}{this.state.successMessage ? <Link to="/"> - Back to courses</Link> : ""}</h2>
             </div>
           </form>
         </div>

@@ -37,14 +37,16 @@ createCourse = () => {
   },
   {auth: {username: this.props.email, password: this.props.password}})
   .then(res => {
-    if(res.status > 200 && res.status < 400) {
-      this.setState(prevState => {
-        return {
-          ...prevState,
-          courseCreated: 'Course created!',
-          errors: ""
-        };
-      });
+    if(res.status === 500) {
+      this.props.history.push('/error');
+    } else if(res.status > 200 && res.status < 400) {
+        this.setState(prevState => {
+          return {
+            ...prevState,
+            courseCreated: 'Course created!',
+            errors: ""
+          };
+        });
     }
   })
   .catch((err) => {
